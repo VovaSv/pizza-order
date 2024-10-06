@@ -23,6 +23,11 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'semi': ['error', 'always', {'omitLastInOneLineBlock': false}],
+      'comma-dangle': ['error', 'never'],
+       quotes: ['error', 'single'],
+      'react/prop-type': [0],
+      'indent': ['error', 'tab']
     },
   },
 )

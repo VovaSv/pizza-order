@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { forwardRef } from 'react';
-import styles from './Input.module.css';
+import styles from './Search.module.css';
 import { SearchProps } from './Search.props';
 
 const Search = forwardRef<HTMLInputElement, SearchProps>(
@@ -15,4 +15,4 @@ const Search = forwardRef<HTMLInputElement, SearchProps>(
 	}
 );
 
-export default Input;
+export default Search;

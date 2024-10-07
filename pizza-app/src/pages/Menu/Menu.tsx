@@ -1,5 +1,11 @@
-import { Link } from 'react-router-dom';
+import Heading from '../../components/Heading/Heading';
+import Search from '../../components/Search/Search';
 
 export default function Menu() {
-	return <div>Mene Page</div>;
+	return (
+		<>
+			<Heading>{'Menu'}</Heading>
+			<Search />
+		</>
+	);
 }

@@ -5,12 +5,12 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import CartPage from './pages/Cart/Cart.tsx';
 import MenuPage from './pages/Menu/Menu.tsx';
-import MenuLayout from './layouts/Menu/Menu.tsx';
+import LeftPanelLayout from './layouts/LeftPanel/LeftPanel.tsx';
 import ErrorPage from './pages/Error/Error.tsx';
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <MenuLayout />,
+		element: <LeftPanelLayout />,
 		children: [
 			{
 				path: '/',

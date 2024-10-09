@@ -23,7 +23,7 @@ export default function ProductCard(props: ProductCardProps) {
 					</div>
 				</div>
 				<div className={styles['card_footer']}>
-					<div className={styles['card_product-title']}>{props.title}</div>
+					<div className={styles['card_product-title']}>{props.name}</div>
 					<div className={styles['card_product-description']}>
 						{props.descritpion}
 					</div>

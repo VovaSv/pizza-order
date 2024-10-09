@@ -8,6 +8,9 @@ import MenuPage from './pages/Menu/Menu.tsx';
 import LeftPanelLayout from './layouts/LeftPanel/LeftPanel.tsx';
 import ErrorPage from './pages/Error/Error.tsx';
 import ProductDetails from './pages/ProductDetails/ProductDetails.tsx';
+import axios from 'axios';
+import { API_URL_PREFIX } from './configs/API';
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -24,6 +27,12 @@ const router = createBrowserRouter([
 			{
 				path: '/product/:id',
 				element: <ProductDetails />,
+				loader: async ({ params }) => {
+					const { data } = await axios.get(
+						`${API_URL_PREFIX}/products/${params.id}`
+					);
+					return data;
+				},
 			},
 		],
 	},

@@ -3,12 +3,12 @@ import { Product } from '../../interfaces/product.interface';
 import { Suspense } from 'react';
 
 export default function ProductDetails() {
-	const data = useLoaderData() as { data: Product };
+	const deferredData = useLoaderData() as { data: Product };
 	return (
 		<div>
 			<Suspense fallback={<>Loading Route Defer Data</>}>
-				<Await resolve={data.data}>
-					{({ data }: { data: Product }) => <>`Product Details ${data.name}`</>}
+				<Await resolve={deferredData.data}>
+					{(product: Product) => <>`Product Details ${product.name}`</>}
 				</Await>
 			</Suspense>
 		</div>

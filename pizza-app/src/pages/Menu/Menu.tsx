@@ -78,7 +78,9 @@ export default function Menu() {
 				{error ? (
 					error
 				) : isLoading ? (
-					Array.from({ length: 4 }, () => <ProductCardSkeleton />)
+					Array.from({ length: 4 }, (_, index) => (
+						<ProductCardSkeleton key={index} />
+					))
 				) : (
 					<MenuList products={products} />
 				)}

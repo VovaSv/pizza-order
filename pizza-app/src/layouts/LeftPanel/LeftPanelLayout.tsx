@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import styles from './LeftPanel.module.css';
+import styles from './LeftPanelLayout.module.css';
 import Button from '../../components/Button/Button';
 import cn from 'classnames';
 

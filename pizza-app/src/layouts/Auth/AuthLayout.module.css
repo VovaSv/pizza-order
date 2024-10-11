@@ -1,0 +1,20 @@
+.container {
+	display: flex;
+	border-right: 1px solid grey;
+	min-height: 100vh;
+}
+
+.left-section_logo {
+	flex: 1;
+	border-right: 1px solid var(--separator-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.right-section_content {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

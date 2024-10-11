@@ -1,14 +1,19 @@
 import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
+import axios from 'axios';
 import App from './App.tsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom';
+
+import LeftPanelLayout from './layouts/LeftPanel/LeftPanelLayout.tsx';
+import AuthLayout from './layouts/Auth/AuthLayout.tsx';
+
 import CartPage from './pages/Cart/Cart.tsx';
-//import MenuPage from './pages/Menu/Menu.tsx';
-import LeftPanelLayout from './layouts/LeftPanel/LeftPanel.tsx';
 import ErrorPage from './pages/Error/Error.tsx';
 import ProductDetails from './pages/ProductDetails/ProductDetails.tsx';
-import axios from 'axios';
+import LoginPage from './pages/Login/Login.tsx';
+import RegisterPage from './pages/Register/Register.tsx';
+
 import { API_URL_PREFIX } from './configs/API';
 
 // Each lazy loaded component should be inside <suspense>
@@ -22,6 +27,7 @@ const router = createBrowserRouter([
 			{
 				path: '/',
 				element: (
+					//wrapped menupage with suspense due to lazy page loading
 					<Suspense fallback={<>Loading...</>}>
 						<MenuPage />
 					</Suspense>
@@ -57,6 +63,20 @@ const router = createBrowserRouter([
 						}),
 					});
 				},
+			},
+		],
+	},
+	{
+		path: '/auth',
+		element: <AuthLayout />,
+		children: [
+			{
+				path: 'login',
+				element: <LoginPage />,
+			},
+			{
+				path: 'register',
+				element: <RegisterPage />,
 			},
 		],
 	},

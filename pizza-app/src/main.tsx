@@ -15,7 +15,7 @@ import LoginPage from './pages/Login/Login.tsx';
 import RegisterPage from './pages/Register/Register.tsx';
 
 import { API_URL_PREFIX } from './configs/API';
-import { RequireAuth } from './hocs/RequireAuth.tsx';
+import { RequireAuth } from './hocs';
 
 // Each lazy loaded component should be inside <suspense>
 const MenuPage = lazy(() => import('./pages/Menu/Menu'));

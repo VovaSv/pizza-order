@@ -15,6 +15,7 @@ import LoginPage from './pages/Login/Login.tsx';
 import RegisterPage from './pages/Register/Register.tsx';
 
 import { API_URL_PREFIX } from './configs/API';
+import { RequireAuth } from './hocs/RequireAuth.tsx';
 
 // Each lazy loaded component should be inside <suspense>
 const MenuPage = lazy(() => import('./pages/Menu/Menu'));
@@ -22,7 +23,7 @@ const MenuPage = lazy(() => import('./pages/Menu/Menu'));
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <LeftPanelLayout />,
+		element: <RequireAuth> <LeftPanelLayout /></RequireAuth>,
 		children: [
 			{
 				path: '/',

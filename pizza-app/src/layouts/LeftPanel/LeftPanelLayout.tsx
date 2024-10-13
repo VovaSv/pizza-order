@@ -1,9 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import styles from './LeftPanelLayout.module.css';
 import Button from '../../components/Button/Button';
 import cn from 'classnames';
 
 export default function LeftPanel() {
+	const navigate = useNavigate();
+
+	const logout = () => {
+		localStorage.removeItem('jwt');
+		navigate('/auth/login')
+
+	}
 	return (
 		<div className={styles['container']}>
 			<div className={styles['sidebar']}>
@@ -37,9 +44,9 @@ export default function LeftPanel() {
 						Cart
 					</NavLink>
 				</div>
-				<Button className={styles['exit_button']}>
+				<Button className={styles['exit_button']} onClick={logout}>
 					<img src='/exit-icon.svg' alt='' />
-					Exit
+					Logout
 				</Button>
 			</div>
 			<div className={styles['content']}>

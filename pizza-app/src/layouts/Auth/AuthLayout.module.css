@@ -18,3 +18,10 @@
 	align-items: center;
 	justify-content: center;
 }
+
+@media (width <=768px) {
+	.left-section_logo {
+		display: none;
+		/* Hide sidebar on mobile */
+	}
+}

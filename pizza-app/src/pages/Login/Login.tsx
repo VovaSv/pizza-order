@@ -8,12 +8,17 @@ import axios, { AxiosError } from 'axios';
 import { API_URL_PREFIX } from '../../configs/API';
 import cn from 'classnames';
 import { LoginResponse } from '../../interfaces/loginResponse.interface';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { userActions } from '../../store/userSlice';
 
 export default function Login() {
 
 	const [error, setError] = useState<string | null>();
 	//const [isFadingOut, setIsFadingOut] = useState(false);
 	const navigate = useNavigate();
+
+	const dispatch = useDispatch<AppDispatch>()
 
 	const sendLogin = async (email: string, password: string) => {
 		console.log('we call to login')
@@ -23,6 +28,7 @@ export default function Login() {
 			});
 			if (data.access_token) {
 				localStorage.setItem('jwt', data.access_token);
+				dispatch(userActions.addJwt(data.access_token))
 				navigate('/');
 			}
 			return;

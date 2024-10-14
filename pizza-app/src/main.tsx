@@ -16,6 +16,8 @@ import RegisterPage from './pages/Register/Register.tsx';
 
 import { API_URL_PREFIX } from './configs/API';
 import { RequireAuth } from './hocs';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
 // Each lazy loaded component should be inside <suspense>
 const MenuPage = lazy(() => import('./pages/Menu/Menu'));
@@ -89,6 +91,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
 	</StrictMode>
 );

@@ -4,9 +4,16 @@ import styles from './Menu.module.css';
 import ProductCardSkeleton from '../../components/ProductCardSkeleton/ProductCardSkeleton';
 import { MenuList } from './MenuList/MenuList';
 import { useFetchProducts } from '../../hooks';
+import { useEffect, useRef } from 'react';
 
 export default function Menu() {
 	const [products, isLoading, error] = useFetchProducts();
+	const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+	useEffect(() => {
+		console.log(searchInputRef?.current)
+		searchInputRef?.current?.focus();
+	}, [])
 	// const [products, setProducts] = useState<Product[]>([]);
 	// const [isLoading, setIsLoading] = useState<Boolean>(false);
 	// const [error, setError] = useState<string | undefined>();
@@ -72,7 +79,7 @@ export default function Menu() {
 		<>
 			<div className={styles['head']}>
 				<Heading>{'Menu'}</Heading>
-				<Search placeholder='Enter meal or ingerdients' />
+				<Search placeholder='Enter meal or ingerdients' ref={searchInputRef} />
 			</div>
 			<div>
 				{error ? (

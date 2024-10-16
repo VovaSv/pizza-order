@@ -4,30 +4,32 @@ import Heading from '../../components/Heading/Heading';
 import Input from '../../components/Input/Input';
 import styles from './Login.module.css';
 import { FormEvent, useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
-import { API_URL_PREFIX } from '../../configs/API';
 import cn from 'classnames';
-import { LoginResponse } from '../../interfaces/loginResponse.interface';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { userActions } from '../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { loginAsyncThunk } from '../../store/thunks/userThunks';
 
 export default function Login() {
-
 	const [error, setError] = useState<string | null>();
 	//const [isFadingOut, setIsFadingOut] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
 
-	const dispatch = useDispatch<AppDispatch>()
+	const jwt = useSelector((s: RootState) => s.user.jwt);
+
+	useEffect(() => {
+		console.log('UseEffect [jwt]: ', jwt);
+	}, [jwt])
 
 	const sendLogin = async (email: string, password: string) => {
+		/* Before add Async Thunk
 		console.log('we call to login')
 		try {
 			const { data } = await axios.post<LoginResponse>(`${API_URL_PREFIX}/auth/login`, {
 				email, password
 			});
 			if (data.access_token) {
-				localStorage.setItem('jwt', data.access_token);
+				//localStorage.setItem('jwt', data.access_token);
 				dispatch(userActions.addJwt(data.access_token))
 				navigate('/');
 			}
@@ -38,7 +40,8 @@ export default function Login() {
 				setError(error.response?.data.message)
 			}
 		}
-
+*/
+		dispatch(loginAsyncThunk({ email, password, navigate }))
 	}
 
 

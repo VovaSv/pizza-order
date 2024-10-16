@@ -17,7 +17,8 @@ import RegisterPage from './pages/Register/Register.tsx';
 import { API_URL_PREFIX } from './configs/API';
 import { RequireAuth } from './hocs';
 import { Provider } from 'react-redux';
-import { store } from './store/store.ts';
+import { persistor, store } from './store/store.ts';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 // Each lazy loaded component should be inside <suspense>
 const MenuPage = lazy(() => import('./pages/Menu/Menu'));
@@ -92,7 +93,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<Provider store={store}>
-			<RouterProvider router={router} />
+			<PersistGate loading={null} persistor={persistor}>
+				<RouterProvider router={router} />
+			</PersistGate >
 		</Provider>
 	</StrictMode>
 );

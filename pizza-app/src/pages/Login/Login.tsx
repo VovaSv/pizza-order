@@ -8,14 +8,15 @@ import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { loginAsyncThunk } from '../../store/thunks/userThunks';
+import { userActions } from '../../store/slices/userSlice';
 
 export default function Login() {
-	const [error, setError] = useState<string | null>();
+	//const [error, setError] = useState<string | null>();
 	//const [isFadingOut, setIsFadingOut] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 
-	const jwt = useSelector((s: RootState) => s.user.jwt);
+	const { jwt, loginErrorMessage } = useSelector((s: RootState) => s.user);
 
 	useEffect(() => {
 		console.log('UseEffect [jwt]: ', jwt);
@@ -47,19 +48,20 @@ export default function Login() {
 
 	useEffect(() => {
 		console.log('useEffect: on render')
-		if (error) {
+		if (loginErrorMessage) {
 			const removeErrorTimer = setTimeout(() => {
-				setError(null);
+				dispatch(userActions.clearLoginError());
 			}, 3000); // Adjust for fade-out duration
 
 			return () => {
 				clearTimeout(removeErrorTimer);
 			};
 		}
-	}, [error]);
+	}, [loginErrorMessage]);
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-		setError(null);
+		//setError(null);
+		dispatch(userActions.clearLoginError())
 		e.preventDefault();
 		//const submitEvent = e.nativeEvent as SubmitEvent;
 		//const submitter = submitEvent.submitter as HTMLElement | null;
@@ -76,7 +78,7 @@ export default function Login() {
 	return (
 		<div className={styles['login-container']}>
 			<Heading>{'Login'}</Heading>
-			<div className={cn(styles['error'])}>{error}</div>
+			<div className={cn(styles['error'])}>{loginErrorMessage}</div>
 			<form className={styles['login-form']} onSubmit={handleSubmit}>
 				<div className={styles['login-form_field']}>
 					<label htmlFor='email'>You email</label>

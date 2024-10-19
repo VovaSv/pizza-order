@@ -2,12 +2,17 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import styles from './LeftPanelLayout.module.css';
 import Button from '../../components/Button/Button';
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { userActions } from '../../store/slices/userSlice';
 
 export default function LeftPanel() {
 	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const logout = () => {
-		localStorage.removeItem('jwt');
+		//localStorage.removeItem('jwt');
+		dispatch(userActions.logout())
 		navigate('/auth/login')
 
 	}

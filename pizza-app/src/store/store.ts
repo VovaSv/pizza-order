@@ -29,13 +29,21 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
+    devTools: {
+        serialize: {
+            options: {
+                undefined: true // without this data with undefined values will not show in devtools
+            }
+        }
+    },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
                 // Ignore these redux-persist actions from serializable checks
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
         }),
+
 })
 
 

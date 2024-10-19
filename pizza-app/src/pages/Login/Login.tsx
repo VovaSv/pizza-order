@@ -93,7 +93,7 @@ export default function Login() {
 
 			<div className={styles['login-footer']}>
 				<div>No account?</div>
-				<Link to={'/register'}>Register</Link>
+				<Link to={'/auth/register'}>Register</Link>
 			</div>
 		</div>
 	);

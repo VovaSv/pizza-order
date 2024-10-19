@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAsyncThunk } from "../thunks/userThunks";
+import { loginAsyncThunk, registerAsyncThunk, getProfileAsyncThunk } from "../thunks/userThunks";
+import { Profile } from "../../interfaces/profile.interfaces";
 
 
 export interface UserState {
     jwt: string | null,
-    loginErrorMessage: string | undefined,
+    loginErrorMessage?: string,
+    registerErrorMessage?: string,
+    profile?: Profile
+
 }
 
 export const initialState: UserState = {
-    jwt: null,
-    loginErrorMessage: undefined
+    jwt: null
 }
 export const userSlice = createSlice({
     name: 'user',
@@ -23,6 +26,9 @@ export const userSlice = createSlice({
         },
         clearLoginError: (state) => {
             state.loginErrorMessage = undefined;
+        },
+        clearRegisterError: (state) => {
+            state.registerErrorMessage = undefined;
         }
     }, extraReducers: (builder) => {
         builder.addCase(loginAsyncThunk.fulfilled, (state, action) => {
@@ -38,6 +44,27 @@ export const userSlice = createSlice({
                 // Fallback to generic error message if no payload
                 state.loginErrorMessage = "Something went wrong!";
             }
+        });
+        builder.addCase(getProfileAsyncThunk.fulfilled, (state, action) => {
+            state.profile = action.payload;
+
+        });
+
+        builder.addCase(registerAsyncThunk.fulfilled, (state, action) => {
+            if (action.payload && action.payload.access_token) {
+                state.jwt = action.payload.access_token
+                action.payload.navigate?.('/');
+            }
+        });
+
+        builder.addCase(registerAsyncThunk.rejected, (state, action) => {
+            if (action.payload) {
+                state.registerErrorMessage = action.payload;
+            } else {
+                state.registerErrorMessage = "Something went wrong!";
+
+            }
+
         });
     }
 })

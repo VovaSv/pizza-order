@@ -69,7 +69,4 @@ export default function LeftPanel() {
 		</div>
 	);
 }
-function userSelector(arg0: (s: RootState) => import("../../interfaces/profile.interfaces").Profile | undefined) {
-	throw new Error('Function not implemented.');
-}
 

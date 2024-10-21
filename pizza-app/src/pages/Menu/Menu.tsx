@@ -3,17 +3,24 @@ import Search from '../../components/Search/Search';
 import styles from './Menu.module.css';
 import ProductCardSkeleton from '../../components/ProductCardSkeleton/ProductCardSkeleton';
 import { MenuList } from './MenuList/MenuList';
-import { useFetchProducts } from '../../hooks';
-import { useEffect, useRef } from 'react';
+import { useFetchProducts, useDebounce } from '../../hooks';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 export default function Menu() {
-	const [products, isLoading, error] = useFetchProducts();
 	const searchInputRef = useRef<HTMLInputElement | null>(null);
+	const [searchValue, setSearchValue] = useState<string>('');
+	//const debouncedSearchValue = useDebounce(searchValue, 300); This is another example of debouncing
+	// we can debounce value and pass it to useFetchProducts | useFetchProducts(debouncedSearchValue, 400);
+	const [products, isLoading, error] = useFetchProducts(searchValue, 400);
 
 	useEffect(() => {
 		console.log(searchInputRef?.current)
 		searchInputRef?.current?.focus();
 	}, [])
+
+	const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(e.target.value);
+	}
 	// const [products, setProducts] = useState<Product[]>([]);
 	// const [isLoading, setIsLoading] = useState<Boolean>(false);
 	// const [error, setError] = useState<string | undefined>();
@@ -79,7 +86,7 @@ export default function Menu() {
 		<>
 			<div className={styles['head']}>
 				<Heading>{'Menu'}</Heading>
-				<Search placeholder='Enter meal or ingerdients' ref={searchInputRef} />
+				<Search placeholder='Enter meal or ingerdients' ref={searchInputRef} onChange={handleSearchInput} />
 			</div>
 			<div>
 				{error ? (

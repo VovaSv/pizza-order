@@ -26,6 +26,17 @@ export const cartSlice = createSlice({
             } else {
                 existed.count++;
             }
+        },
+        removeItem: (state, action: PayloadAction<number>) => {
+            const existed = state.items.find((item) => item.id === action.payload);
+            if (existed && existed.count === 0) {
+                return;
+            } else if (existed?.count) {
+                existed.count--;
+            }
+        },
+        deleteItem: (state, action: PayloadAction<number>) => {
+            state.items = state.items.filter((item) => item.id !== action.payload)
         }
 
     }, extraReducers: (builder) => {

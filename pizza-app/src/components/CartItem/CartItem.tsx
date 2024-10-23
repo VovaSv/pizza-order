@@ -10,15 +10,15 @@ const CartItem: React.FC<CartItemProps> = (props) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const descrease = (e: MouseEvent) => {
-        //dispatch(cartActions.removeItem(1));
+        dispatch(cartActions.removeItem(props.id));
     }
 
     const increase = (e: MouseEvent) => {
         dispatch(cartActions.addItem(props.id));
     }
 
-    const remove = (e: MouseEvent) => {
-        // dispatch(cartActions.addItem(1));
+    const deleteItem = (e: MouseEvent) => {
+        dispatch(cartActions.deleteItem(props.id));
     }
 
     return (
@@ -36,7 +36,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
                 <button className={cn(styles['card_item-button'], styles['increase'])} onClick={increase}>
                     <img src='/plus.svg' alt='Increase' />
                 </button>
-                <button className={cn(styles['card_item-button'], styles['remove'])} onClick={remove}>
+                <button className={cn(styles['card_item-button'], styles['remove'])} onClick={deleteItem}>
                     <img src='/delete.svg' alt='Remove' />
                 </button>
             </div>

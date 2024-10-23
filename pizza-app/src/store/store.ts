@@ -15,7 +15,7 @@ export type RootState = {
 const persistConfig: PersistConfig<RootState> = {
     key: 'root',
     storage,
-    whitelist: ['user'], // Only persist the someSlice state
+    whitelist: ['user', 'cart'], // Only persist the someSlice state
     transforms: [userTransform]
 };
 

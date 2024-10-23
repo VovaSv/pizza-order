@@ -4,6 +4,7 @@ import styles from './CartItem.module.css';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { cartActions } from "../../store/slices/cartSlice";
+import cn from 'classnames';
 
 const CartItem: React.FC<CartItemProps> = (props) => {
     const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +14,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
     }
 
     const increase = (e: MouseEvent) => {
-        //dispatch(cartActions.addItem(1));
+        dispatch(cartActions.addItem(props.id));
     }
 
     const remove = (e: MouseEvent) => {
@@ -22,24 +23,22 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
     return (
         <div className={styles['cart_item-container']}>
-            <div className={styles['cart_item-body']}>
-                <div className={styles['cart_item-image']} style={{ backgroundImage: `url(${props.image})` }}></div>
-                <div className={styles['cart_item-description']}>
-                    <div className={styles['cart_item-name']}>{props.name}</div>
-                    <div className={styles['cart_item-currency']}>{props.price}&nbsp;$</div>
-                </div>
-                <div className={styles['cart_item-actions']}>
-                    <button className={styles['card_item-descrease-button']} onClick={descrease}>
-                        <img src='/add-to-card-icon.svg' alt='Decrease' />
-                    </button>
-                    <div>{props.count}</div>
-                    <button className={styles['card_item-increase-button']} onClick={increase}>
-                        <img src='/add-to-card-icon.svg' alt='Increase' />
-                    </button>
-                    <button className={styles['card_item-remove-button']} onClick={remove}>
-                        <img src='/add-to-card-icon.svg' alt='Remove' />
-                    </button>
-                </div>
+            <div className={styles['cart_item-image']} style={{ backgroundImage: `url(${props.image})` }}></div>
+            <div className={styles['cart_item-description']}>
+                <div className={styles['cart_item-name']}>{props.name}</div>
+                <div className={styles['cart_item-price']}>{props.price}&nbsp;$</div>
+            </div>
+            <div className={styles['cart_item-actions']}>
+                <button className={cn(styles['card_item-button'])} onClick={descrease}>
+                    <img src='/minus.svg' alt='Decrease' />
+                </button>
+                <div className={styles['item-counter']}>{props.count}</div>
+                <button className={cn(styles['card_item-button'], styles['increase'])} onClick={increase}>
+                    <img src='/plus.svg' alt='Increase' />
+                </button>
+                <button className={cn(styles['card_item-button'], styles['remove'])} onClick={remove}>
+                    <img src='/delete.svg' alt='Remove' />
+                </button>
             </div>
         </div>
     )

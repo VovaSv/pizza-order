@@ -95,9 +95,10 @@ export default function Menu() {
 					Array.from({ length: 4 }, (_, index) => (
 						<ProductCardSkeleton key={index} />
 					))
-				) : products.length > 0 ? (
+				) : products?.length ? (
 					<MenuList products={products} />
-				) : <>No product was found</>}
+				) : products?.length === 0 ?
+					<>No product was found</> : ''}
 			</div>
 		</>
 	);

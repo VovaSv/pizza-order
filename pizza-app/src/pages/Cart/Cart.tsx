@@ -6,6 +6,7 @@ import CartItem from '../../components/CartItem/CartItem';
 import { Product } from '../../interfaces/product.interface';
 import axios from 'axios';
 import { API_URL_PREFIX } from '../../configs/API';
+import styles from './Cart.module.css';
 
 export default function Cart() {
 	const [cartProducts, setCardProducts] = useState<Product[]>([]);
@@ -28,7 +29,7 @@ export default function Cart() {
 
 	return (
 		<div>
-			<Heading>Cart</Heading>
+			<Heading className={styles['heading']}>Cart</Heading>
 			{items?.map((item) => {
 				const product = cartProducts.find((product) => product.id === item.id);
 				if (!product) return;

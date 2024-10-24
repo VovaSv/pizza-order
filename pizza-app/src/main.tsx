@@ -19,6 +19,7 @@ import { RequireAuth } from './hocs';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store/store.ts';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import { OrderSubmitted } from './pages/OrderSubmitted/OrderSubmitted.tsx';
 
 // Each lazy loaded component should be inside <suspense>
 const MenuPage = lazy(() => import('./pages/Menu/Menu'));
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
 					});
 				},
 			},
+			{
+				path: '/order-submitted',
+				element: <OrderSubmitted />,
+			},
+
 		],
 	},
 	{

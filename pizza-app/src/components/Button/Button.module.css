@@ -2,7 +2,7 @@
   font-family: inherit;
   cursor: pointer;
   transition: background 0.25s;
-  border: none;
+  border-style: none;
   color: var(--white-color);
   border-radius: 29px;
   font-style: normal;
